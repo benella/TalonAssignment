@@ -1,13 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const eventsRouter = require('./routes/events');
 
-var app = express();
+const app = express();
+
+const DB_URL = `mongodb+srv://ben:${process.env.DATABASE_PASSWORD}@talonassignmentevents.vnlwccr.mongodb.net/events?retryWrites=true&w=majority`
+
+mongoose.connect(DB_URL, { keepAlive: true})
+    .then(() => {
+      console.log(`Connected to Mongo Atlas`);
+    })
+    .catch(() => {
+      console.log('Failed to connected to Mongo Atlas');
+    });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/events', eventsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

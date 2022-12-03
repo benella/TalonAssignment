@@ -1,20 +1,27 @@
 ## Talon Home Assignment
-Node version v17.8.0
 
 
 ### Server
 
-Under `server` directory
+---
+#### Setup
+Node version `v17.8.0`
+
+Under `server` directory, run
 
 ```
 npm install
 ```
 
-to install dependencies
+An environment variable `DATABASE_PASSWORD` is required, with the password for the MongoDB Atlas user.
 
+---
+
+#### Start
 ```
 npm run start
 ```
-to start server, available on http://localhost:3000/
+Available on http://localhost:3000/
 
+---
 
