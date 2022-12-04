@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <mat-table [dataSource]="data">
+    <ng-container matColumnDef="eventType">
+      <mat-header-cell *matHeaderCellDef>Event Type</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.eventType }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
