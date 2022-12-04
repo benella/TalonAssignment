@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TableComponent } from './table/table.component'
 import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { MatTableModule } from '@angular/material/table'
   ],
   imports: [
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class TableModule { }
