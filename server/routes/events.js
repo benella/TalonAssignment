@@ -1,18 +1,22 @@
-const express = require('express');
-const router = express.Router();
-const Event = require('../models/event');
+const express = require('express')
+const router = express.Router()
+const Event = require('../models/event')
+const paginate = require('../utils/paginate')
 
-router.get('/', function(req, res, next) {
-  const pageSize = +req.query.pagesize || 10;
-  const offset = +req.query.offset || 0;
+router.get('/', function (req, res) {
+  const query = {}
 
-  Event.find().skip(offset).limit(pageSize).then((events) => {
-    res.json({
-      objects: events,
-      pageSize: pageSize,
-      offset: offset
-    })
-  });
-});
+  if (req.query.eventType) {
+    query.eventType = { $in: req.query.eventType.split(',') }
+  }
 
-module.exports = router;
+  paginate(Event, query, '-time', req, res)
+})
+
+router.get('/filter-options/eventType', function (req, res) {
+  Event.distinct('eventType').then((options) => {
+    res.json({ options })
+  })
+})
+
+module.exports = router
