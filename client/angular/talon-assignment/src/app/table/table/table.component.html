@@ -1,12 +1,15 @@
 <div class="wrapper">
-  <mat-table [dataSource]="data">
-    <ng-container matColumnDef="eventType">
-      <mat-header-cell *matHeaderCellDef>Event Type</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.eventType }}</mat-cell>
-    </ng-container>
+  <p>{{title}}</p>
+  <mat-table [dataSource]="dataSource || []">
+    <ng-content></ng-content>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: headers;"></mat-row>
   </mat-table>
-  <mat-paginator></mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25]"
+    (page)="onPaginate($event)"
+    [length]="3465"
+    [pageSize]="10"
+  ></mat-paginator>
 </div>

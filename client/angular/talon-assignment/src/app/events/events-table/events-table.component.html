@@ -1,0 +1,30 @@
+<ta-table
+  [dataSource]="query.objects$ | async"
+  [headers]="displayedColumns"
+  [title]="'Events Table'"
+>
+  <ng-container matColumnDef="eventType">
+    <mat-header-cell *matHeaderCellDef>Event Type</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.eventType | humanize }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="severity">
+    <mat-header-cell *matHeaderCellDef>Severity</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.severity | uppercase }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        <p>{{ element.user[0].name }}</p>
+        <p>{{ element.user[0].email }}</p>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.time }}</mat-cell>
+  </ng-container>
+</ta-table>
