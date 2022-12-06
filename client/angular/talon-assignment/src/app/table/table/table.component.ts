@@ -1,19 +1,44 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild } from '@angular/core'
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Inject,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewChild
+} from '@angular/core'
 import { MatTable, MatColumnDef } from '@angular/material/table'
 import { PageEvent } from '@angular/material/paginator'
+import { TABLE_DATA_QUERY, TABLE_DATA_SOURCE, TABLE_DATA_STORE } from './table'
+import { TableDataSourceService } from '../infrastructure/table-data-source.service'
+import { TableDataStore } from '../infrastructure/table-data.store'
+import { TableDataQuery } from '../infrastructure/table-data.query'
+import { Subject, switchMap, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'ta-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent<T> implements AfterContentInit {
+export class TableComponent<T> implements AfterContentInit, OnDestroy {
   @Input() title?: string
-  @Input() dataSource: T[] | null = []
   @Input() headers: string[] = []
 
   @ViewChild(MatTable, { static: true }) table!: MatTable<T>
   @ContentChildren(MatColumnDef) columnDefs?: QueryList<MatColumnDef>
+
+  destroy$ = new Subject<void>()
+
+  constructor (@Inject(TABLE_DATA_SOURCE) readonly dataSource: TableDataSourceService<T>,
+              @Inject(TABLE_DATA_STORE) readonly store: TableDataStore<T>,
+              @Inject(TABLE_DATA_QUERY) readonly query: TableDataQuery<T>) {
+    this.query.pageQuery$.pipe(
+      switchMap(([offset, pageSize, filters]) => {
+        return this.dataSource.read(offset, pageSize, filters)
+      }),
+      takeUntil(this.destroy$)).subscribe()
+  }
 
   ngAfterContentInit (): void {
     if (this.columnDefs) {
@@ -22,6 +47,12 @@ export class TableComponent<T> implements AfterContentInit {
   }
 
   onPaginate (event: PageEvent): void {
-    console.log('paginate', event)
+    this.store.update(state => {
+      return { ...state, pageSize: event.pageSize, offset: event.pageIndex * event.pageSize }
+    })
+  }
+
+  ngOnDestroy (): void {
+    this.destroy$.next()
   }
 }

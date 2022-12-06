@@ -1,9 +1,14 @@
+export interface FilterParam {
+  name: string;
+  value: string;
+}
+
 export interface TableState<T> {
   objects: T[];
   total: number;
   pageSize: number;
   offset: number;
-  filters: Record<string, string[]>;
+  filters: FilterParam[];
 }
 
 export interface TableDataResponse<T> {

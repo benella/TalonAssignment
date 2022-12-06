@@ -1,6 +1,6 @@
 <div class="wrapper">
   <p>{{title}}</p>
-  <mat-table [dataSource]="dataSource || []">
+  <mat-table [dataSource]="query.objects$ || []">
     <ng-content></ng-content>
 
     <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
@@ -9,7 +9,7 @@
   <mat-paginator
     [pageSizeOptions]="[5, 10, 25]"
     (page)="onPaginate($event)"
-    [length]="3465"
-    [pageSize]="10"
+    [length]="query.select('total') | async"
+    [pageSize]="query.select('pageSize') | async"
   ></mat-paginator>
 </div>

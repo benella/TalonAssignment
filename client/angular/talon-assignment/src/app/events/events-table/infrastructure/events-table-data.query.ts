@@ -1,11 +1,12 @@
 import { TableDataQuery } from '../../../table/infrastructure/table-data.query'
 import { EventData } from '../event'
-import { Injectable } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { EventsTableDataStore } from './events-table-data.store'
+import { TABLE_DATA_STORE } from '../../../table/table/table'
 
 @Injectable()
 export class EventsTableDataQuery extends TableDataQuery<EventData> {
-  constructor (protected override store: EventsTableDataStore) {
+  constructor (@Inject(TABLE_DATA_STORE) protected override store: EventsTableDataStore) {
     super(store)
   }
 }
