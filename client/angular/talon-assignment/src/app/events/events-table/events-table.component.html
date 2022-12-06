@@ -1,4 +1,8 @@
-<ta-table [headers]="displayedColumns" [title]="'Events Table'">
+<ta-table
+  [headers]="displayedColumns"
+  [title]="'Events Table'"
+  [filters]="filters"
+>
   <ng-container matColumnDef="eventType">
     <mat-header-cell *matHeaderCellDef>Event Type</mat-header-cell>
     <mat-cell *matCellDef="let element"> {{ element.eventType | humanize }}</mat-cell>

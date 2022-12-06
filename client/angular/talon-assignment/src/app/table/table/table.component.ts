@@ -24,6 +24,7 @@ import { Subject, switchMap, takeUntil } from 'rxjs'
 export class TableComponent<T> implements AfterContentInit, OnDestroy {
   @Input() title?: string
   @Input() headers: string[] = []
+  @Input() filters: string[] = []
 
   @ViewChild(MatTable, { static: true }) table!: MatTable<T>
   @ContentChildren(MatColumnDef) columnDefs?: QueryList<MatColumnDef>

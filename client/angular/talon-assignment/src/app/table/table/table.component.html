@@ -1,11 +1,17 @@
 <div class="wrapper">
   <p>{{title}}</p>
+
+  <div class="filters">
+    <ta-multi-select-filter [key]="filter" *ngFor="let filter of filters"></ta-multi-select-filter>
+  </div>
+
   <mat-table [dataSource]="query.objects$ || []">
     <ng-content></ng-content>
 
     <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
     <mat-row *matRowDef="let row; columns: headers;"></mat-row>
   </mat-table>
+
   <mat-paginator
     [pageSizeOptions]="[5, 10, 25]"
     (page)="onPaginate($event)"

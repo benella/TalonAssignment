@@ -16,4 +16,5 @@ import { TABLE_DATA_QUERY, TABLE_DATA_SOURCE, TABLE_DATA_STORE } from '../../tab
 })
 export class EventsTableComponent {
   displayedColumns: string[] = ['eventType', 'severity', 'user', 'date']
+  filters: string[] = ['eventType']
 }
