@@ -1,3 +1,43 @@
-.wrapper {
+$table-background-color: #222B36;
+$table-color: #fff;
 
+.wrapper {
+  max-width: 1340px;
+  margin: 50px auto;
+  background-color: $table-background-color;
+  border-radius: 8px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+  padding-top: 17px;
+}
+
+.title {
+  font-size: 17px;
+  line-height: 28px;
+  margin-left: 16px;
+}
+
+.filters {
+  margin: 14px 0 0 16px;
+}
+
+.mat-paginator {
+  background: $table-background-color;
+  border-radius: 0 0 8px 8px;
+}
+
+.mat-table {
+  background: $table-background-color;
+}
+
+::ng-deep .mat-header-cell, mat-header-cell, mat-header-row {
+  color: $table-color;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+mat-row, mat-header-row {
+  min-height: 73px;
+  border-bottom-width: 2px;
+  border-bottom-color: #3D4752;
+  padding-left: 40px;
 }

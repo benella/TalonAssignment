@@ -4,11 +4,13 @@ import { EventsTableComponent } from './events-table/events-table.component'
 import { URL_SEGMENT } from '../table/table/table'
 import { TableModule } from '../table/table.module'
 import { MatTableModule } from '@angular/material/table'
-import { SharedModule } from '../common/shared.module'
+import { SharedModule } from '../common/shared.module';
+import { UserCellComponent } from './user-cell/user-cell.component'
 
 @NgModule({
   declarations: [
-    EventsTableComponent
+    EventsTableComponent,
+    UserCellComponent
   ],
   exports: [
     EventsTableComponent

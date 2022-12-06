@@ -16,10 +16,7 @@
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
     <mat-cell *matCellDef="let element">
-      <div>
-        <p>{{ element.user[0].name }}</p>
-        <p>{{ element.user[0].email }}</p>
-      </div>
+      <ta-user-cell [name]="element.user[0].name" [email]="element.user[0].email"></ta-user-cell>
     </mat-cell>
   </ng-container>
 
