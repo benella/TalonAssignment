@@ -7,7 +7,8 @@ export function createInitialState<T> (): TableState<T> {
     total: 0,
     pageSize: 5,
     offset: 0,
-    filters: []
+    filters: [],
+    filterOptions: {}
   }
 }
 

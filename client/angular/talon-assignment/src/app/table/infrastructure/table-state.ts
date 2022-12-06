@@ -9,6 +9,7 @@ export interface TableState<T> {
   pageSize: number;
   offset: number;
   filters: FilterParam[];
+  filterOptions: Record<string, string[]>
 }
 
 export interface TableDataResponse<T> {

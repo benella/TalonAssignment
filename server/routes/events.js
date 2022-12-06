@@ -19,9 +19,9 @@ router.get('/', function (req, res) {
 /**
  * Listing all distinct values of Event types
  */
-router.get('/filter-options/eventType', function (req, res) {
+router.get('/filter-options', function (req, res) {
   Event.distinct('eventType').then((options) => {
-    res.json({ options })
+    res.json({ eventType: options })
   })
 })
 

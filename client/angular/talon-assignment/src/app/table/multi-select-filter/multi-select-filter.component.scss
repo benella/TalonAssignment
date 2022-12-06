@@ -1,3 +1,14 @@
 mat-form-field {
   width: 400px;
 }
+
+mat-select {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  top: 20px
+}
+
+.mat-form-field-flex {
+  min-height: 66px;
+}

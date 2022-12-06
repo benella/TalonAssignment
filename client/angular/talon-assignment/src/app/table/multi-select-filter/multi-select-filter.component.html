@@ -1,8 +1,15 @@
 <mat-form-field appearance="outline">
   <mat-label>Event Type Filter</mat-label>
-  <mat-chip-list #chipList>
-    <mat-chip>
-      Login
+  <mat-chip-list>
+    <mat-chip *ngFor="let selected of selected">
+      {{ selected | humanize }}
+      <button matChipRemove (click)="removeChip(selected)">
+        <mat-icon>cancel</mat-icon>
+      </button>
     </mat-chip>
   </mat-chip-list>
+  <mat-select multiple [formControl]="form">
+    <mat-select-trigger></mat-select-trigger>
+    <mat-option *ngFor="let option of options$ | async" [value]="option">{{option | humanize}}</mat-option>
+  </mat-select>
 </mat-form-field>

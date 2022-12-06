@@ -2,7 +2,7 @@
   <p class="title">{{title}}</p>
 
   <div class="filters">
-    <ta-multi-select-filter [key]="filter" *ngFor="let filter of filters"></ta-multi-select-filter>
+    <ta-multi-select-filter [key]="filter" *ngFor="let filter of filters" (value)="onFilterValueChange($event)"></ta-multi-select-filter>
   </div>
 
   <mat-table [dataSource]="query.objects$ || []">

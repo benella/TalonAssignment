@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { TableDataStore } from './table-data.store'
-import { map, Observable, tap } from 'rxjs'
-import { FilterParam, TableDataResponse, TableState } from './table-state'
+import { Observable, of, switchMap, tap } from 'rxjs'
+import { FilterParam, TableDataResponse } from './table-state'
 import { URL_SEGMENT } from '../table/table'
 
 @Injectable()
 export abstract class TableDataSourceService<T> {
   protected constructor (@Inject(URL_SEGMENT) protected urlSegment: string, protected readonly http: HttpClient, protected store: TableDataStore<T>) { }
 
-  read (offset: number, pageSize: number, filters: FilterParam[] = []): Observable<TableState<T>> {
+  read (offset: number, pageSize: number, filters: FilterParam[] = []): Observable<void> {
     this.store.setLoading(true)
 
     let params = new HttpParams().set('offset', offset).set('pageSize', pageSize)
@@ -22,17 +22,15 @@ export abstract class TableDataSourceService<T> {
         total: data.total
       }
       ))
-    }), map(data => {
-      this.store.setLoading(false)
+    }), switchMap(() => of(undefined)))
+  }
 
-      return {
-        objects: data.objects,
-        total: data.total,
-        offset: data.offset,
-        pageSize: data.pageSize,
-        filters: []
-      }
-    }
-    ))
+  getFilterOptions (): Observable<void> {
+    return this.http.get<Record<string, string[]>>(`api/${this.urlSegment}/filter-options`).pipe(tap(filters => {
+      this.store.update(state => ({
+        ...state,
+        filterOptions: filters
+      }))
+    }), switchMap(() => of(undefined)))
   }
 }

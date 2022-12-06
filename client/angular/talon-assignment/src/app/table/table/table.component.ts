@@ -34,6 +34,7 @@ export class TableComponent<T> implements AfterContentInit, OnDestroy {
   constructor (@Inject(TABLE_DATA_SOURCE) readonly dataSource: TableDataSourceService<T>,
               @Inject(TABLE_DATA_STORE) readonly store: TableDataStore<T>,
               @Inject(TABLE_DATA_QUERY) readonly query: TableDataQuery<T>) {
+    this.dataSource.getFilterOptions().subscribe()
     this.query.pageQuery$.pipe(
       switchMap(([offset, pageSize, filters]) => {
         return this.dataSource.read(offset, pageSize, filters)
@@ -50,6 +51,12 @@ export class TableComponent<T> implements AfterContentInit, OnDestroy {
   onPaginate (event: PageEvent): void {
     this.store.update(state => {
       return { ...state, pageSize: event.pageSize, offset: event.pageIndex * event.pageSize }
+    })
+  }
+
+  onFilterValueChange (newFilterOptions: [string, string[]]): void {
+    this.store.update(state => {
+      return { ...state, filters: [{ name: newFilterOptions[0], value: newFilterOptions[1].join(',') }] }
     })
   }
 

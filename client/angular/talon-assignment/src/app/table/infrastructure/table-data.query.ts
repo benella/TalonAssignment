@@ -14,4 +14,6 @@ export abstract class TableDataQuery<T> extends Query<TableState<T>> {
     this.select('pageSize'),
     this.select('filters')
   ])
+
+  filterOptions$ = (filterKey: string) => this.select(state => state.filterOptions[filterKey])
 }
