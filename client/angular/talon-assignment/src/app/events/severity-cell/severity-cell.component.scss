@@ -1,0 +1,19 @@
+.severity {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 3px 8px 4px;
+  border-radius: 8px;
+
+  &.high {
+    background-color: #F06161;
+  }
+
+  &.medium {
+    background-color: #FFB547;
+  }
+
+  &.low {
+    background-color: #3A90E5;
+  }
+}

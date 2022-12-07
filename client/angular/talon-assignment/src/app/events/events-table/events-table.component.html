@@ -10,7 +10,7 @@
 
   <ng-container matColumnDef="severity">
     <mat-header-cell *matHeaderCellDef>Severity</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.severity | uppercase }}</mat-cell>
+    <mat-cell *matCellDef="let element"><ta-severity-cell [value]="element.severity"></ta-severity-cell></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="user">
@@ -22,6 +22,6 @@
 
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.time }}</mat-cell>
+    <mat-cell *matCellDef="let element"> {{ element.time | date: 'y/MM/dd | H:mm:ss' }}</mat-cell>
   </ng-container>
 </ta-table>

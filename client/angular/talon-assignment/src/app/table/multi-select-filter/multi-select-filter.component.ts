@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core'
 import { TABLE_DATA_QUERY } from '../table/table'
 import { TableDataQuery } from '../infrastructure/table-data.query'
 import { Observable, of, tap } from 'rxjs'
 import { FormControl } from '@angular/forms'
+import { MatSelect } from '@angular/material/select'
 
 @Component({
   selector: 'ta-multi-select-filter',
@@ -12,6 +13,8 @@ import { FormControl } from '@angular/forms'
 export class MultiSelectFilterComponent implements OnInit {
   @Input() key?: string
   @Output() value = new EventEmitter<[string, string[]]>()
+
+  @ViewChild(MatSelect, { static: true }) select!: MatSelect
 
   form = new FormControl([''])
   options$: Observable<string[]> = of([])
@@ -32,6 +35,7 @@ export class MultiSelectFilterComponent implements OnInit {
   }
 
   removeChip (option: string): void {
+    this.select
     this.selected.splice(this.selected.indexOf(option), 1)
     this.value.next([this.key || '', this.selected])
   }
