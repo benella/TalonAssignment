@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core'
 import { TABLE_DATA_QUERY } from '../table/table'
 import { TableDataQuery } from '../infrastructure/table-data.query'
 import { Observable, of } from 'rxjs'
@@ -7,7 +7,8 @@ import { MatSelect } from '@angular/material/select'
 @Component({
   selector: 'ta-multi-select-filter',
   templateUrl: './multi-select-filter.component.html',
-  styleUrls: ['./multi-select-filter.component.scss']
+  styleUrls: ['./multi-select-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiSelectFilterComponent implements OnInit {
   @Input() key?: string

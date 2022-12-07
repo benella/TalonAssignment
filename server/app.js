@@ -7,14 +7,14 @@ const eventsRouter = require('./routes/events')
 
 const app = express()
 
-const DB_URL = `mongodb+srv://ben:${process.env.DATABASE_PASSWORD}@talonassignmentevents.vnlwccr.mongodb.net/events?retryWrites=true&w=majority`
+const DB_URL = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@talonassignmentevents.vnlwccr.mongodb.net/events?retryWrites=true&w=majority`
 
 mongoose.connect(DB_URL, { keepAlive: true })
   .then(() => {
     console.log('Connected to Mongo Atlas')
   })
   .catch(() => {
-    console.log('Failed to connected to Mongo Atlas')
+    console.log('Failed to connected to Mongo Atlas (DATABASE_USERNAME and DATABASE_PASSWORD are required)')
   })
 
 app.use(logger('dev'))

@@ -10,8 +10,8 @@ const DEFAULT_OFFSET = 10
  * @param response
  */
 const paginate = (model, query, defaultSort, request, response) => {
-  const pageSize = +request.query.pageSize || DEFAULT_PAGE_SIZE
-  const offset = +request.query.offset || DEFAULT_OFFSET
+  const pageSize = request.query.pageSize !== undefined ? +request.query.pageSize : DEFAULT_PAGE_SIZE
+  const offset = request.query.offset !== undefined ? +request.query.offset : DEFAULT_OFFSET
 
   model
     .find(query)

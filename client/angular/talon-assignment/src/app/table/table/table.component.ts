@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   Inject,
@@ -8,7 +9,7 @@ import {
   QueryList,
   ViewChild
 } from '@angular/core'
-import { MatTable, MatColumnDef } from '@angular/material/table'
+import { MatColumnDef, MatTable } from '@angular/material/table'
 import { PageEvent } from '@angular/material/paginator'
 import { TABLE_DATA_QUERY, TABLE_DATA_SOURCE, TABLE_DATA_STORE } from './table'
 import { TableDataSourceService } from '../infrastructure/table-data-source.service'
@@ -19,7 +20,8 @@ import { Subject, switchMap, takeUntil } from 'rxjs'
 @Component({
   selector: 'ta-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent<T> implements AfterContentInit, OnDestroy {
   @Input() title?: string
