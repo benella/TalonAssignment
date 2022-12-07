@@ -9,12 +9,12 @@ mat-select {
   top: 20px
 }
 
-.mat-form-field-flex {
-  min-height: 66px;
-}
-
 .mat-chip {
   font-weight: 400;
   font-size: 13px;
   background-color: rgba(255, 255, 255, 0.16);
+}
+
+::ng-deep .multi-select-wrapper .mat-form-field-flex {
+  min-height: 66px;
 }
